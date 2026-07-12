@@ -1,0 +1,23 @@
+{
+  "example_kind": "synthetic_workflow_output",
+  "application_changes": [
+    {
+      "summary": "Improved a returning-user flow",
+      "category": "validation_follow_up"
+    }
+  ],
+  "project_memory_changes": [
+    {
+      "summary": "Prepared a concise validation note",
+      "category": "durable_summary_candidate"
+    }
+  ],
+  "latest_completed_work": {
+    "summary": "A focused review reached its acceptance criteria",
+    "evidence_state": "review_required"
+  },
+  "sync_candidate": {
+    "topic": "returning-user validation",
+    "action": "prepare_for_human_review"
+  }
+}
