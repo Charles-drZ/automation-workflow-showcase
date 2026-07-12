@@ -1,6 +1,8 @@
 # Automation Workflow — Public Case Study
 
-This is a sanitized case study of an n8n workflow that helps connect version-control activity, issue tracking, structured text processing, and an Obsidian-based project memory. The live workflow remains private.
+This repository explains an n8n workflow that connects version-control activity, issue tracking, structured text processing, and an Obsidian-based project memory.
+
+It matters because it shows a practical way to prepare useful project summaries while keeping collection, interpretation, and durable updates separate.
 
 ## High-level flow
 
@@ -49,5 +51,13 @@ flowchart TD
 - [Synthetic output example](examples/sanitized-output-example.json)
 - [Synthetic digest example](examples/sanitized-digest-example.md)
 - [Diagram notes](diagrams/workflow.md)
+- [Changelog](CHANGELOG.md)
 
-This repository is a portfolio case study rather than a deployable automation package.
+## Related repositories
+
+- [Public developer profile](https://github.com/Charles-drZ/Charles-drZ)
+- [GlassBox product case study](https://github.com/Charles-drZ/glassbox-showcase)
+- [GlassBox development workflow](https://github.com/Charles-drZ/glassbox-development-workflow)
+- [Raspberry Home documentation case study](https://github.com/Charles-drZ/raspberry-home-showcase)
+
+This is a public case study rather than a deployable automation package.
