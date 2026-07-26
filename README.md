@@ -1,3 +1,5 @@
+[← Developer profile](https://github.com/Charles-drZ)
+
 # Automation Workflow — Review-Gated Project Memory Case Study
 
 This repository presents the public, sanitized view of an n8n-based engineering workflow that connects issue tracking, Git evidence, structured processing, and durable project memory.
@@ -6,15 +8,13 @@ This repository presents the public, sanitized view of an n8n-based engineering 
 
 ## At a glance
 
-| Area | Approach |
-| --- | --- |
-| Workflow platform | n8n |
-| Source categories | Issue tracking, Git history, and project-memory observations |
-| Deterministic role | Collection, normalization, evidence comparison, and candidate preparation |
-| AI role | Optional bounded structured-text processing and review support |
-| Durable update authority | Human-approved proposal and verification flow |
-| Current private state | Verified evidence baseline; durable sync queue evolving under explicit contracts |
-| Public material | Architecture and synthetic examples only |
+**Workflow platform:** n8n  
+**Source categories:** Issue tracking, Git history, and project-memory observations  
+**Deterministic role:** Collection, normalization, evidence comparison, and candidate preparation  
+**AI role:** Optional bounded structured-text processing and review support  
+**Durable update authority:** Human-approved proposal and verification flow  
+**Current private state:** Verified evidence baseline; durable sync queue evolving under explicit contracts  
+**Public material:** Architecture and synthetic examples only
 
 ## What this proves
 
