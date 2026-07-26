@@ -2,6 +2,13 @@
 
 # Changelog
 
+## 2026-07-26 — visual publication readiness
+
+- Added a structured visual publication plan for future n8n canvas, node-group, human-review, and verification evidence.
+- Defined exact safe capture roles, generalized labeling expectations, metadata handling, and a pre-publication checklist.
+- Required visual evidence to remain non-contractual and non-reconstructable, with no workflow exports, node configuration, payloads, prompts, credentials, or private project data.
+- Linked the plan from the main case study so future images can be added without restructuring the recruiter narrative.
+
 ## 2026-07-26 — review-gated durable-sync direction
 
 - Updated the public case study from the earlier deterministic digest prototype to the current review-gated durable project-memory direction.
