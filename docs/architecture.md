@@ -1,19 +1,39 @@
+[← Automation workflow case study](../README.md)
+
 # Architecture
 
-The workflow treats source collection, interpretation, and durable updates as distinct stages.
+The private workflow separates evidence collection, target observation, candidate preparation, review, and verification. This public page describes the responsibility boundaries without publishing the executable workflow.
 
-## Source branches
+## 1. Observe work evidence
 
-Separate branches collect recent application commits, project-memory commits, and relevant work items. Keeping them separate prevents one input from accidentally driving repeated downstream work.
+Approved issue-tracker and Git sources are collected independently. Each source must be complete enough for review before it can influence a durable-memory candidate.
 
-## Normalization and merge
+## 2. Observe current project memory
 
-Each source is converted to a small common shape before the branches merge. The merged result is used to build a deterministic digest: a predictable summary of what is relevant before optional AI interpretation.
+Existing durable documentation is inspected as a separate target state. Source evidence and target memory are not treated as interchangeable proof.
 
-## Optional structured processing
+## 3. Validate integrity
 
-An OpenAI API step may turn the digest into a constrained summary. It adds interpretation support, not autonomous decision-making.
+Completeness, duplicate observations, malformed data, and uncertain joins are checked before interpretation. Material uncertainty stops the handoff rather than producing a confident-looking result.
 
-## Review gate and durable memory
+## 4. Prepare deterministic candidates
 
-The workflow prepares a candidate update. A human reviews it before durable project memory changes. This preserves the distinction between automatically collected signals and accepted knowledge.
+Reproducible rules identify which observations may require review. This narrows the work before any optional model-assisted interpretation.
+
+## 5. Build bounded review context
+
+Only selected candidates receive minimized review context. Missing or truncated evidence remains visible to the reviewer.
+
+## 6. Keep change authority human
+
+Automation can prepare a proposal, but a human decides whether the project meaning is accurate, appropriately scoped, and safe to retain. Accepted changes follow normal repository review.
+
+## 7. Verify the durable result
+
+After an approved change is merged, the target is observed again. The workflow records the reviewed result only after the expected durable state is confirmed.
+
+Exact contracts, field definitions, algorithms, prompts, node wiring, and synchronization records remain private.
+
+---
+
+[← Return to automation workflow case study](../README.md)

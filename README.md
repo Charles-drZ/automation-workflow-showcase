@@ -14,7 +14,7 @@ This repository presents the public, sanitized view of an n8n-based engineering 
 **AI role:** Optional bounded structured-text processing and review support  
 **Durable update authority:** Human-approved proposal and verification flow  
 **Current private state:** Verified evidence baseline; durable sync queue evolving under explicit contracts  
-**Public material:** Architecture and synthetic examples only
+**Public material:** Architecture, non-deployable diagrams, and one descriptive synthetic review example
 
 ## What this proves
 
@@ -123,12 +123,11 @@ All examples are synthetic and exist to explain the engineering model rather tha
 
 - [Architecture](docs/architecture.md)
 - [Data flow](docs/data-flow.md)
-- [Node responsibilities](docs/node-responsibilities.md)
-- [Security](docs/security.md)
+- [Node-group responsibilities](docs/node-responsibilities.md)
+- [Security and publication boundary](docs/security.md)
 - [Lessons learned](docs/lessons-learned.md)
-- [Synthetic output example](examples/sanitized-output-example.json)
-- [Synthetic digest example](examples/sanitized-digest-example.md)
-- [Diagram notes](diagrams/workflow.md)
+- [Synthetic review-candidate example](examples/synthetic-review-candidate.md)
+- [Current workflow diagram](diagrams/workflow.md)
 - [Changelog](CHANGELOG.md)
 
 ## Related work
