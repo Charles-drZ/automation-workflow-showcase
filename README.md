@@ -106,6 +106,8 @@ The repository is ready for visual additions as the private workflow stabilizes.
 
 Visuals will be added incrementally. The absence of screenshots does not indicate an unfinished workflow; the written architecture remains the current public source of truth.
 
+See the [visual publication plan](assets/SCREENSHOT_PLAN.md) for the planned capture set, sanitization rules, and pre-publication checklist.
+
 ## Public boundary
 
 This repository does **not** publish:
@@ -128,6 +130,7 @@ All examples are synthetic and exist to explain the engineering model rather tha
 - [Lessons learned](docs/lessons-learned.md)
 - [Synthetic review-candidate example](examples/synthetic-review-candidate.md)
 - [Current workflow diagram](diagrams/workflow.md)
+- [Visual publication plan](assets/SCREENSHOT_PLAN.md)
 - [Changelog](CHANGELOG.md)
 
 ## Related work
