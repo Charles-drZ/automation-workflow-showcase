@@ -1,19 +1,51 @@
+[← Automation workflow case study](../README.md)
+
 # Data flow
+
+The public model describes categories and decision boundaries, not the private workflow contract.
 
 ## Generic inputs
 
-| Input | Normalized fields |
-| --- | --- |
-| Commit activity | Source, short summary, change category, review relevance |
-| Work item | Status, accepted scope summary, validation state, relevance |
-| Existing memory signal | Topic, last-known context, update candidate |
+**Accepted work observation**  
+Selected issue-tracker evidence describing completed or reviewable work.
+
+**Git evidence observation**  
+Selected repository evidence showing that relevant implementation work exists.
+
+**Durable-memory observation**  
+The current reviewed project-memory state for the same topic.
+
+**Integrity state**  
+Whether required source coverage is complete and unambiguous enough to continue.
+
+## Generic processing
+
+1. Observe each source independently.
+2. Validate completeness and integrity.
+3. Compare work evidence with the current durable-memory state.
+4. Prepare deterministic review candidates.
+5. Build minimized context only for selected candidates.
+6. Keep the final decision and change approval human-controlled.
 
 ## Generic outputs
 
-| Output | Purpose |
-| --- | --- |
-| Deterministic digest | A traceable view of selected input before interpretation. |
-| Structured summary | Optional concise interpretation using constrained fields. |
-| Sync candidate | A proposed durable-memory update awaiting review. |
+**Validated observation set**  
+A traceable view of the evidence categories considered for the review cycle.
 
-Inputs are selected and minimized for the task. Real payloads, live responses, internal URLs, and personal information are intentionally excluded from this public repository.
+**Review candidate**  
+A topic that may need clarification, durable documentation, or no action.
+
+**Bounded review context**  
+A minimized package for human-led or model-assisted interpretation.
+
+**Approved proposal**  
+A reviewed change prepared for normal repository review rather than a direct protected-branch write.
+
+**Verified durable result**  
+Confirmation that the accepted project-memory state exists after merge.
+
+Real payloads, exact fields, schemas, source identifiers, private responses, and synchronization records are intentionally excluded.
+
+---
+
+[← Return to automation workflow case study](../README.md)
