@@ -1,47 +1,125 @@
-# Automation Workflow — Public Case Study
+# Automation Workflow — Review-Gated Project Memory Case Study
 
-This repository explains an n8n workflow that connects version-control activity, issue tracking, structured text processing, and an Obsidian-based project memory.
+This repository presents the public, sanitized view of an n8n-based engineering workflow that connects issue tracking, Git evidence, structured processing, and durable project memory.
 
-It matters because it shows a practical way to prepare useful project summaries while keeping collection, interpretation, and durable updates separate.
+> **The goal is not to let automation decide what is true. The goal is to collect evidence deterministically, prepare bounded review work, and keep every durable update under explicit human control.**
 
-## High-level flow
+## At a glance
 
-1. A manual or scheduled trigger starts a review cycle.
-2. Recent application and project-memory commits are collected.
-3. Relevant issue-tracker items are collected.
-4. Each source is normalized before merging.
-5. A deterministic digest is built from the selected information.
-6. Optional OpenAI API processing creates a structured summary.
-7. A candidate project-memory update is prepared.
-8. A human reviews the candidate before any durable update.
+| Area | Approach |
+| --- | --- |
+| Workflow platform | n8n |
+| Source categories | Issue tracking, Git history, and project-memory observations |
+| Deterministic role | Collection, normalization, evidence comparison, and candidate preparation |
+| AI role | Optional bounded structured-text processing and review support |
+| Durable update authority | Human-approved proposal and verification flow |
+| Current private state | Verified evidence baseline; durable sync queue evolving under explicit contracts |
+| Public material | Architecture and synthetic examples only |
+
+## What this proves
+
+- I can design an automation as a controlled engineering system rather than a chain of loosely connected AI calls.
+- I understand pagination, normalization, deterministic joins, source integrity, idempotency, and fail-closed behavior.
+- I keep source evidence separate from semantic judgment.
+- I design large-context workflows so only bounded, relevant material reaches model-assisted review.
+- I preserve human approval before any durable project-memory change.
+- I treat credentials, private issue content, execution data, and workflow implementation as protected material.
+
+## The problem
+
+A long-running software project accumulates information across issue trackers, commits, discussions, validation evidence, and durable documentation. A simple summary can be useful, but it cannot safely decide whether project memory is complete, stale, duplicated, or semantically superseded.
+
+The workflow therefore separates three concerns:
+
+1. **Observation** — what the source systems currently contain.
+2. **Candidate preparation** — what may require review or durable-memory work.
+3. **Decision and verification** — what a human approves and what the merged result actually contains.
+
+## Current workflow direction
+
+The private workflow began as a deterministic project digest and now has a verified evidence baseline for comparing completed work, Git implementation evidence, and current project-memory observations.
+
+It is being extended into a review-gated durable synchronization flow with:
+
+- stable source observations;
+- separate target-state observations;
+- deterministic candidate states;
+- bounded semantic review packets;
+- human-approved patch proposals;
+- post-merge verification;
+- idempotent synchronization records.
+
+The exact contracts, schemas, algorithms, prompts, node wiring, and workflow exports remain private.
+
+## High-level architecture
 
 ```mermaid
 flowchart TD
-    A[Manual or scheduled trigger] --> B[GitHub: application commits]
-    A --> C[GitHub: project-memory commits]
-    A --> D[Linear issues]
-    B --> E[Normalize application data]
-    C --> F[Normalize project-memory data]
-    D --> G[Normalize issue data]
-    E --> H[Merge]
-    F --> H
-    G --> H
-    H --> I[Build deterministic digest]
-    I --> J[OpenAI API structured processing]
-    J --> K[Project-memory sync candidate]
-    K --> L[Human review]
-    L --> M[Durable project-memory update]
+    A[Manual or scheduled review cycle] --> B[Issue-tracker observation]
+    A --> C[Git evidence observation]
+    A --> D[Project-memory observation]
+    B --> E[Normalize and validate sources]
+    C --> E
+    D --> E
+    E --> F{Source observation complete?}
+    F -- No --> G[Fail closed and report uncertainty]
+    F -- Yes --> H[Deterministic evidence comparison]
+    H --> I[Bounded review candidates]
+    I --> J[Human-led semantic review]
+    J --> K[Review-gated change proposal]
+    K --> L[Merge through normal repository review]
+    L --> M[Verify durable result]
+    M --> N[Record reviewed sync state]
 ```
 
-## Boundaries
+## Engineering principles
 
-- No credentials are included.
-- No private issue content or real API responses are included.
-- All examples are synthetic.
-- The live workflow configuration and endpoints remain private.
-- A human approves a durable memory update.
+### Deterministic before semantic
 
-## Contents
+Collection, normalization, key matching, and integrity checks should produce reproducible results before a model is asked to interpret anything.
+
+### Source and target stay separate
+
+Issue and Git evidence describe the work source. Existing project-memory documents describe the observed target. Combining them too early can make stale documentation look like proof that a change was already captured correctly.
+
+### Bounded review context
+
+Only selected candidates should produce semantic review packets. Large source bodies are not sent to a model on every run, and any truncation or missing evidence must remain visible.
+
+### Fail closed
+
+Incomplete pagination, failed enrichment, duplicate keys, malformed artifacts, or uncertain joins must block a durable handoff rather than silently producing a confident-looking result.
+
+### Human approval remains final
+
+Automation may prepare evidence and proposals. It does not decide product meaning, publish private information, write directly to a protected branch, or mark project work complete.
+
+## Visual evidence
+
+The repository is ready for visual additions as the private workflow stabilizes. Future privacy-reviewed material may include:
+
+- an n8n canvas overview with credentials and private labels removed;
+- major node-group screenshots;
+- a synthetic candidate queue;
+- a synthetic review packet;
+- a high-level verification and ledger view.
+
+Visuals will be added incrementally. The absence of screenshots does not indicate an unfinished workflow; the written architecture remains the current public source of truth.
+
+## Public boundary
+
+This repository does **not** publish:
+
+- live n8n workflow exports or node configuration;
+- credentials, endpoints, webhook URLs, execution IDs, or raw execution data;
+- real issue descriptions, comments, private repository content, or API responses;
+- exact fingerprint inputs, canonicalization rules, schemas, or sync-ledger structure;
+- model prompts, private review packets, or automatic write instructions;
+- GlassBox source code or implementation evidence.
+
+All examples are synthetic and exist to explain the engineering model rather than reproduce the private automation.
+
+## Explore the case study
 
 - [Architecture](docs/architecture.md)
 - [Data flow](docs/data-flow.md)
@@ -53,11 +131,11 @@ flowchart TD
 - [Diagram notes](diagrams/workflow.md)
 - [Changelog](CHANGELOG.md)
 
-## Related repositories
+## Related work
 
-- [Public developer profile](https://github.com/Charles-drZ/Charles-drZ)
+- [Developer profile](https://github.com/Charles-drZ/Charles-drZ)
 - [GlassBox product case study](https://github.com/Charles-drZ/glassbox-showcase)
-- [GlassBox development workflow](https://github.com/Charles-drZ/glassbox-development-workflow)
-- [Raspberry Home documentation case study](https://github.com/Charles-drZ/raspberry-home-showcase)
+- [Development workflow case study](https://github.com/Charles-drZ/glassbox-development-workflow)
+- [Raspberry Home case study](https://github.com/Charles-drZ/raspberry-home-showcase)
 
-This is a public case study rather than a deployable automation package.
+This is a public engineering case study, not a deployable automation package.
