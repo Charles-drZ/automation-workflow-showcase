@@ -108,6 +108,20 @@ Visuals will be added incrementally. The absence of screenshots does not indicat
 
 See the [visual publication plan](assets/SCREENSHOT_PLAN.md) for the planned capture set, sanitization rules, and pre-publication checklist.
 
+## Visual preview
+
+`assets/visuals/` is reserved for future, privacy-reviewed screenshots so visual evidence can be added without redesigning the case study. No screenshots are included yet.
+
+Privacy boundary: every future image must use synthetic or approved content and must not disclose credentials, endpoints, execution data, private issues, workflow configuration, prompts, or implementation details.
+
+Planned images:
+
+- [ ] `assets/visuals/automation-workflow-overview.png`
+- [ ] `assets/visuals/automation-observation-boundaries.png`
+- [ ] `assets/visuals/automation-integrity-gate.png`
+- [ ] `assets/visuals/automation-human-review-gate.png`
+- [ ] `assets/visuals/automation-verification-loop.png`
+
 ## Public boundary
 
 This repository does **not** publish:
