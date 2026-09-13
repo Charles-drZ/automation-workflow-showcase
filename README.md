@@ -1,126 +1,124 @@
 [← Developer profile](https://github.com/Charles-drZ)
 
-# Automation Workflow — Review-Gated Project Memory Case Study
+# Engineering Automation — Evidence & Review Pipeline
 
-This repository presents the public, sanitized view of an n8n-based engineering workflow that connects issue tracking, Git evidence, structured processing, and durable project memory.
+**An n8n-based engineering system for collecting source evidence, detecting review work, and preparing durable project-memory changes without letting automation invent project truth.**
 
-> **The goal is not to let automation decide what is true. The goal is to collect evidence deterministically, prepare bounded review work, and keep every durable update under explicit human control.**
+This case study describes the sanitized public architecture around the private GlassBox automation system.
 
-## At a glance
+The interesting part is not that n8n can connect APIs. The engineering problem is keeping several evolving sources aligned without turning a generated summary into an authority.
 
-**Workflow platform:** n8n  
-**Source categories:** Issue tracking, Git history, and project-memory observations  
-**Deterministic role:** Collection, normalization, evidence comparison, and candidate preparation  
-**AI role:** Optional bounded structured-text processing and review support  
-**Durable update authority:** Human-approved proposal and verification flow  
-**Current private state:** Verified evidence baseline; durable sync queue evolving under explicit contracts  
-**Public material:** Architecture, non-deployable diagrams, and one descriptive synthetic review example
+## Problem
 
-## What this proves
+Long-running product development produces evidence across issue tracking, Git history, runtime validation, release work, and durable documentation.
 
-- I can design an automation as a controlled engineering system rather than a chain of loosely connected AI calls.
-- I understand pagination, normalization, deterministic joins, source integrity, idempotency, and fail-closed behavior.
-- I keep source evidence separate from semantic judgment.
-- I design large-context workflows so only bounded, relevant material reaches model-assisted review.
-- I preserve human approval before any durable project-memory change.
-- I treat credentials, private issue content, execution data, and workflow implementation as protected material.
+A naive automation can fetch all of that and generate a summary. That is useful, but it does not answer harder questions safely:
 
-## The problem
+- Was every source page collected?
+- Is an issue actually backed by implementation evidence?
+- Is existing project memory stale or already current?
+- Are two records really the same work item?
+- Was context truncated before semantic review?
+- Can the same synchronization attempt run twice without duplicating durable state?
+- What happens when one upstream source is incomplete?
 
-A long-running software project accumulates information across issue trackers, commits, discussions, validation evidence, and durable documentation. A simple summary can be useful, but it cannot safely decide whether project memory is complete, stale, duplicated, or semantically superseded.
+The pipeline therefore separates **observation**, **deterministic comparison**, **semantic review**, and **durable change authority**.
 
-The workflow therefore separates three concerns:
+## Current private baseline
 
-1. **Observation** — what the source systems currently contain.
-2. **Candidate preparation** — what may require review or durable-memory work.
-3. **Decision and verification** — what a human approves and what the merged result actually contains.
+The private automation system runs on self-hosted n8n and already has a deterministic evidence baseline around GlassBox project work.
 
-## Current workflow direction
+Current engineering contracts include:
 
-The private workflow began as a deterministic project digest and now has a verified evidence baseline for comparing completed work, Git implementation evidence, and current project-memory observations.
+- upstream evidence collection rather than hardcoded project counts;
+- source normalization into stable structured artifacts;
+- explicit source-of-truth responsibilities;
+- deterministic comparison before semantic interpretation;
+- failure on incomplete or uncertain source integrity;
+- bounded review candidates rather than sending the entire project context to a model;
+- separation of source observations from existing durable-memory observations;
+- review-gated durable changes;
+- no automatic archival/deletion of project-tracker work;
+- no credentials, raw environment dumps, or complete private tracker artifacts in durable outputs.
 
-It is being extended into a review-gated durable synchronization flow with:
+The durable synchronization path continues to evolve behind these contracts. This repository does not claim an autonomous self-updating project brain.
 
-- stable source observations;
-- separate target-state observations;
-- deterministic candidate states;
-- bounded semantic review packets;
-- human-approved patch proposals;
-- post-merge verification;
-- idempotent synchronization records.
-
-The exact contracts, schemas, algorithms, prompts, node wiring, and workflow exports remain private.
-
-## High-level architecture
+## Architecture
 
 ```mermaid
 flowchart TD
-    A[Manual or scheduled review cycle] --> B[Issue-tracker observation]
+    A[Review cycle] --> B[Issue-tracker observation]
     A --> C[Git evidence observation]
     A --> D[Project-memory observation]
-    B --> E[Normalize and validate sources]
+    B --> E[Normalize + validate]
     C --> E
     D --> E
-    E --> F{Source observation complete?}
-    F -- No --> G[Fail closed and report uncertainty]
-    F -- Yes --> H[Deterministic evidence comparison]
+    E --> F{Source integrity complete?}
+    F -- No --> G[Fail closed + surface uncertainty]
+    F -- Yes --> H[Deterministic comparison]
     H --> I[Bounded review candidates]
-    I --> J[Human-led semantic review]
-    J --> K[Review-gated change proposal]
-    K --> L[Merge through normal repository review]
-    L --> M[Verify durable result]
-    M --> N[Record reviewed sync state]
+    I --> J[Semantic review]
+    J --> K[Human-approved change proposal]
+    K --> L[Normal repository review / merge]
+    L --> M[Post-change verification]
+    M --> N[Reviewed durable state]
 ```
 
-## Engineering principles
+## Engineering decisions
 
 ### Deterministic before semantic
 
-Collection, normalization, key matching, and integrity checks should produce reproducible results before a model is asked to interpret anything.
+Pagination, normalization, identity/key matching, integrity checks, and reproducible comparisons belong in deterministic logic. A language model should not be asked to compensate for missing pages or ambiguous joins.
 
-### Source and target stay separate
+### Source and target remain distinct
 
-Issue and Git evidence describe the work source. Existing project-memory documents describe the observed target. Combining them too early can make stale documentation look like proof that a change was already captured correctly.
+Issue/Git evidence describes what happened in the work source. Existing project-memory documents describe the currently observed target state.
 
-### Bounded review context
+Keeping those observations separate prevents stale documentation from becoming circular proof that the documentation is already correct.
 
-Only selected candidates should produce semantic review packets. Large source bodies are not sent to a model on every run, and any truncation or missing evidence must remain visible.
+### Uncertainty is data
 
-### Fail closed
+Missing pages, failed enrichment, malformed artifacts, duplicate identities, truncation, or uncertain joins are not silently converted into a polished-looking result. They block or downgrade the handoff explicitly.
 
-Incomplete pagination, failed enrichment, duplicate keys, malformed artifacts, or uncertain joins must block a durable handoff rather than silently producing a confident-looking result.
+### Context is bounded
 
-### Human approval remains final
+Only selected review candidates should produce semantic-review packets. This reduces cost, prevents unrelated project material from influencing a decision, and keeps truncation visible.
 
-Automation may prepare evidence and proposals. It does not decide product meaning, publish private information, write directly to a protected branch, or mark project work complete.
+### Durable writes require review
 
-## Visual evidence
+Automation can collect, compare, and prepare. A durable project-memory change remains a reviewed operation and is verified again after merge.
 
-The repository is ready for visual additions as the private workflow stabilizes. Future privacy-reviewed material may include:
+## Source-of-truth model
 
-- an n8n canvas overview with credentials and private labels removed;
-- major node-group screenshots;
-- a synthetic candidate queue;
-- a synthetic review packet;
-- a high-level verification and ledger view.
+The wider GlassBox engineering system deliberately avoids one universal database of truth:
 
-Visuals will be added incrementally. The absence of screenshots does not indicate an unfinished workflow; the written architecture remains the current public source of truth.
+- **Issue tracker** — accepted scope and active work state;
+- **GitHub** — committed implementation evidence;
+- **runtime/device evidence** — actual behavioral acceptance;
+- **Brainflow** — reviewed durable engineering knowledge;
+- **automation** — observation, normalization, comparison, and candidate preparation.
 
-See the [visual publication plan](assets/SCREENSHOT_PLAN.md) for the planned capture set, sanitization rules, and pre-publication checklist.
+The automation layer coordinates these sources. It does not replace their authority.
 
-## Visual preview
+## What this demonstrates
 
-`assets/visuals/` is reserved for future, privacy-reviewed screenshots so visual evidence can be added without redesigning the case study. No screenshots are included yet.
+This project is supporting evidence for broader software-engineering work in the portfolio. It demonstrates:
 
-Privacy boundary: every future image must use synthetic or approved content and must not disclose credentials, endpoints, execution data, private issues, workflow configuration, prompts, or implementation details.
+- n8n workflow engineering;
+- structured JSON contracts;
+- pagination and source-integrity handling;
+- deterministic joins and comparison logic;
+- idempotency-oriented design;
+- bounded model-assisted processing;
+- human-in-the-loop mutation boundaries;
+- privacy-aware automation;
+- operational thinking around partial failure rather than happy-path chaining.
 
-Planned images:
+## Synthetic example
 
-- [ ] `assets/visuals/automation-workflow-overview.png`
-- [ ] `assets/visuals/automation-observation-boundaries.png`
-- [ ] `assets/visuals/automation-integrity-gate.png`
-- [ ] `assets/visuals/automation-human-review-gate.png`
-- [ ] `assets/visuals/automation-verification-loop.png`
+The repository includes a synthetic review-candidate example that shows the shape of the review problem without copying real GlassBox issues, commits, project-memory content, or private workflow payloads.
+
+See [synthetic review candidate](examples/synthetic-review-candidate.md).
 
 ## Public boundary
 
@@ -128,14 +126,16 @@ This repository does **not** publish:
 
 - live n8n workflow exports or node configuration;
 - credentials, endpoints, webhook URLs, execution IDs, or raw execution data;
-- real issue descriptions, comments, private repository content, or API responses;
-- exact fingerprint inputs, canonicalization rules, schemas, or sync-ledger structure;
-- model prompts, private review packets, or automatic write instructions;
-- GlassBox source code or implementation evidence.
+- real issue descriptions or comments;
+- private repository contents or API responses;
+- exact internal fingerprint/canonicalization contracts;
+- private model prompts or review packets;
+- GlassBox source code;
+- automatic write instructions for protected project memory.
 
-All examples are synthetic and exist to explain the engineering model rather than reproduce the private automation.
+The public material explains engineering decisions and data-flow boundaries rather than providing a deployable copy of the private automation.
 
-## Explore the case study
+## Explore
 
 - [Architecture](docs/architecture.md)
 - [Data flow](docs/data-flow.md)
@@ -143,15 +143,14 @@ All examples are synthetic and exist to explain the engineering model rather tha
 - [Security and publication boundary](docs/security.md)
 - [Lessons learned](docs/lessons-learned.md)
 - [Synthetic review-candidate example](examples/synthetic-review-candidate.md)
-- [Current workflow diagram](diagrams/workflow.md)
+- [Workflow diagram](diagrams/workflow.md)
 - [Visual publication plan](assets/SCREENSHOT_PLAN.md)
 - [Changelog](CHANGELOG.md)
 
 ## Related work
 
-- [Developer profile](https://github.com/Charles-drZ/Charles-drZ)
-- [GlassBox product case study](https://github.com/Charles-drZ/glassbox-showcase)
-- [Development workflow case study](https://github.com/Charles-drZ/glassbox-development-workflow)
-- [Raspberry Home case study](https://github.com/Charles-drZ/raspberry-home-showcase)
-
-This is a public engineering case study, not a deployable automation package.
+- [Developer profile](https://github.com/Charles-drZ)
+- [GlassBox](https://github.com/Charles-drZ/glassbox-showcase)
+- [NodeMedic](https://github.com/Charles-drZ/nodemedic-showcase)
+- [Raspberry Home](https://github.com/Charles-drZ/raspberry-home-showcase)
+- [Engineering delivery system](https://github.com/Charles-drZ/glassbox-development-workflow)
